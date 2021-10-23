@@ -1,8 +1,8 @@
 library(tidyverse)
 #Loading Data
 covid <- read_csv("https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_doses_admin_global.csv")
-gdp <- read.csv("D:/School-Work/BigData/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_3011433.csv", header=FALSE)
-demographics <- read.csv("D:/School-Work/BigData/demographics.csv", header=FALSE)
+gdp <- read.csv("https://gist.githubusercontent.com/audstanley/689e9ac0b43eae27437c7ac6b568fad0/raw/32aed5fb4c5f8b94660a58f0d267ed33c9eda2a3/data.csv", header=FALSE)
+demographics <- read.csv("https://gist.githubusercontent.com/audstanley/cb889da3782148d2437c371063788859/raw/0999a8e94df39ed5954743e2556f589b2481b86d/demographics.csv", header=FALSE)
 
 #Converting Covid Data set into Tidy Data
 covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2, -Province_State, -Country_Region, -Lat, -Long_, -Combined_Key, -Population), names_to = "date", values_to = "cases", values_drop_na = TRUE)
