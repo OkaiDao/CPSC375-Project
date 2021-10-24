@@ -8,12 +8,12 @@ demographics <- read_csv("https://gist.githubusercontent.com/audstanley/cb889da3
 #Converting Covid Data set into Tidy Data
 covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2,
                                   -Province_State, -Country_Region, -Lat, -Long_, -Combined_Key, -Population), 
-                                names_to = "date", values_to = "cases", values_drop_na = TRUE)
+                                names_to = "date", values_to = "shots", values_drop_na = TRUE)
 
 #Filtering Data from the data set
 #Covid
 covid <- covid %>% filter(is.na(Province_State))
-covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, cases))
+covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots))
 
 #Demographics
 dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
@@ -25,7 +25,7 @@ dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.
                           SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
 
 #gdp
-
+gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
 
 view(dtidy)
 view(covid)
