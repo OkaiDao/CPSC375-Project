@@ -14,6 +14,8 @@ covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2,
 #Covid
 covid <- covid %>% filter(is.na(Province_State))
 covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots))
+#adding vaccination rate
+covid <- covid %>% mutate(vac_rate = shots/Population)
 
 #Demographics
 dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
