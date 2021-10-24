@@ -21,6 +21,9 @@ dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.
 #Converting GDP to Tidy Data
 gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
 
+#Removing all years that are not 2020 in GDP data set
+gdp <- gdp %>% filter(Year == "2020")
+
 #Filtering Data from the data set
 #Covid
 covid <- covid %>% filter(is.na(Province_State))
