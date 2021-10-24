@@ -52,7 +52,8 @@ covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots
 covid <- covid %>% mutate(vac_rate = shots/Population)
 
 #Creating number of days since first day
-covid2 <- covid %>% group_by(Country_Region) %>% summarise(num_days = n())
+
+covid2 <- covid %>% group_by(Country_Region) %>% filter(shots > 0) %>% summarise(num_days = n())
 covid2 <- covid2 %>% mutate(num_of_days = num_days)
 covid2 <- covid2 %>% subset(select=c(num_of_days))
 
@@ -63,3 +64,4 @@ covid2 <- covid2 %>% subset(select=c(num_of_days))
 view(covid)
 view(gdp)
 view(dtidy)
+view(covid2)
