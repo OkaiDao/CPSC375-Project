@@ -5,22 +5,38 @@ gdp <- read_csv("https://gist.githubusercontent.com/audstanley/689e9ac0b43eae274
 demographics <- read_csv("https://gist.githubusercontent.com/audstanley/cb889da3782148d2437c371063788859/raw/0999a8e94df39ed5954743e2556f589b2481b86d/demographics.csv")
 
 #Converting Covid Data set into Tidy Data
-covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2, -Province_State, -Country_Region, -Lat, -Long_, -Combined_Key, -Population), names_to = "date", values_to = "shots", values_drop_na = TRUE)
+covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2,
+                                  -Province_State, -Country_Region, -Lat, -Long_, -Combined_Key, -Population), 
+                                names_to = "date", values_to = "shots", values_drop_na = TRUE)
 
-  #Wrangling Data from Covid data set
-covid <- covid %>% filter(is.na(Province_State), shots > 0)
-covid <- covid %>% mutate(vacRate = shots/Population)
-covid <- covid %>% subset(select=c(iso3, Country_Region, vacRate, Population, date, shots))
+#Converting Demographics to Tidy Data
+dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
+dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.65UP.MA.IN, 
+                          SP.POP.80UP.IN = YR2015_SP.POP.80UP.MA + YR2015_SP.POP.80UP.FE, 
+                          SP.POP.1564.IN = YR2015_SP.POP.1564.MA.IN + YR2015_SP.POP.1564.FE.IN, 
+                          SP.POP.0014.IN = YR2015_SP.POP.0014.MA.IN + YR2015_SP.POP.0014.FE.IN, 
+                          SP.DYN.AMRT = YR2015_SP.DYN.AMRT.MA + YR2015_SP.DYN.AMRT.FE, 
+                          SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
 
+#Converting GDP to Tidy Data
+gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
+
+#Filtering Data from the data set
+#Covid
+covid <- covid %>% filter(is.na(Province_State))
+covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots))
+
+#adding vaccination rate
+covid <- covid %>% mutate(vac_rate = shots/Population)
+
+#Creating number of days since first day
 covid2 <- covid %>% group_by(Country_Region) %>% summarise(num_days = n())
 covid2 <- covid2 %>% mutate(num_of_days = num_days)
 covid2 <- covid2 %>% subset(select=c(num_of_days))
 
- #Wrangling Data from GDP data set
-covid <- covid %>% filter(is.na(Province_State), shots > 0)
-covid <- covid %>% mutate(vacRate = shots/Population)
+#Wrangling Data from GDP data set
+#covid <- covid %>% filter(is.na(Province_State), shots > 0)
+#covid <- covid %>% mutate(vacRate = shots/Population)
 
 view(covid)
 view(gdp)
-dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
-dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.65UP.MA.IN, SP.POP.80UP.IN = YR2015_SP.POP.80UP.MA + YR2015_SP.POP.80UP.FE, SP.POP.1564.IN = YR2015_SP.POP.1564.MA.IN + YR2015_SP.POP.1564.FE.IN, SP.POP.0014.IN = YR2015_SP.POP.0014.MA.IN + YR2015_SP.POP.0014.FE.IN, SP.DYN.AMRT = YR2015_SP.DYN.AMRT.MA + YR2015_SP.DYN.AMRT.FE, SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
