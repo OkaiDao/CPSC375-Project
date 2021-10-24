@@ -10,13 +10,32 @@ covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2,
                                 names_to = "date", values_to = "shots", values_drop_na = TRUE)
 
 #Converting Demographics to Tidy Data
-dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
-dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.65UP.MA.IN, 
-                          SP.POP.80UP.IN = YR2015_SP.POP.80UP.MA + YR2015_SP.POP.80UP.FE, 
-                          SP.POP.1564.IN = YR2015_SP.POP.1564.MA.IN + YR2015_SP.POP.1564.FE.IN, 
-                          SP.POP.0014.IN = YR2015_SP.POP.0014.MA.IN + YR2015_SP.POP.0014.FE.IN, 
-                          SP.DYN.AMRT = YR2015_SP.DYN.AMRT.MA + YR2015_SP.DYN.AMRT.FE, 
-                          SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
+#Creating male/female population numbers
+#dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
+#dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.65UP.MA.IN, 
+#                          SP.POP.80UP.IN = YR2015_SP.POP.80UP.MA + YR2015_SP.POP.80UP.FE, 
+#                          SP.POP.1564.IN = YR2015_SP.POP.1564.MA.IN + YR2015_SP.POP.1564.FE.IN, 
+#                          SP.POP.0014.IN = YR2015_SP.POP.0014.MA.IN + YR2015_SP.POP.0014.FE.IN, 
+#                          SP.DYN.AMRT = YR2015_SP.DYN.AMRT.MA + YR2015_SP.DYN.AMRT.FE, 
+#                          SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
+
+dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = YR2015)
+dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN, 
+                          SP.POP.80UP.IN = SP.POP.80UP.MA + SP.POP.80UP.FE, 
+                          SP.POP.1564.IN = SP.POP.1564.MA.IN + SP.POP.1564.FE.IN, 
+                          SP.POP.0014.IN = SP.POP.0014.MA.IN + SP.POP.0014.FE.IN, 
+                          SP.DYN.AMRT = SP.DYN.AMRT.MA + SP.DYN.AMRT.FE, 
+                          SP.POP.TOTL = SP.POP.TOTL.MA.IN + SP.POP.TOTL.MA.IN)
+
+#Creating male/female population numbers
+#Note this version is directly 
+#dtidy <- dtidy %>% mutate(SP.POP.80UP=SP.POP.80UP.FE+SP.POP.80UP.MA) %>% 
+#  mutate(SP.POP.1564.IN=SP.POP.1564.MA.IN+SP.POP.1564.FE.IN) %>% 
+#  mutate(SP.POP.0014.IN=SP.POP.0014.MA.IN+SP.POP.0014.FE.IN) %>% 
+#  mutate(SP.DYN.AMRT=SP.DYN.AMRT.MA+SP.DYN.AMRT.FE) %>% 
+#  mutate(SP.POP.TOTL.IN=SP.POP.TOTL.FE.IN+SP.POP.TOTL.MA.IN) %>% 
+#  mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN) %>% 
+#  select(-contains(".FE")) %>% select(-contains(".MA"))
 
 #Converting GDP to Tidy Data
 gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
@@ -43,3 +62,4 @@ covid2 <- covid2 %>% subset(select=c(num_of_days))
 
 view(covid)
 view(gdp)
+view(dtidy)
