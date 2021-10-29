@@ -1,4 +1,4 @@
-#Project 1 CPSC 375
+`#Project 1 CPSC 375
 
 library(tidyverse)
 #Loading Data
@@ -66,9 +66,10 @@ covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots
 
 #Joining Tables
 demoGDP <- gdp %>% full_join(demographics, by = "Country Code")
-#covid_data_full <- covid %>% full_join(demoGDP, by = c(iso3 = "Country Code"))
+covid_data_full <- covid %>% full_join(demoGDP, by = c(iso3 = 'Country Code'))
 
 #Views to check tables
+view(covid_data_full)
 view(demoGDP)
 view(covid)
 view(gdp)
