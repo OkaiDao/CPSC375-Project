@@ -41,7 +41,7 @@ dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN,
 
 #Converting GDP to Tidy Data
 gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
-
+gdp <- gdp %>% subset(select = c(`Country Name`, `Country Code`, Year, Value))
 #Removing all years that are not 2020 in GDP data set
 gdp <- gdp %>% filter(Year == "2020")
 
@@ -60,12 +60,13 @@ covid <- covid %>% mutate(vac_rate = shots/Population)
 #covid2 <- covid2 %>% subset(select=c(num_of_days))
 
 #Wrangling Data from GDP data set
-covid <- covid %>% group_by(Country_Region) %>% mutate(start_date = min(date))
+covid <- covid %>% group_by(Country_Region) %>% filter(shots > 0) %>% mutate(start_date = min(date))
 covid <- covid %>% mutate(days_since_start = 1 + as.numeric(difftime(date, start_date, units = "days")))
 covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots, days_since_start))
 
 #Joining Tables
 demoGDP <- gdp %>% full_join(demographics, by = "Country Code")
+#covid_data_full <- covid %>% full_join(demoGDP, by = c(iso3 = "Country Code"))
 
 #Views to check tables
 view(demoGDP)
