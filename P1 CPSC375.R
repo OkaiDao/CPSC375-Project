@@ -1,4 +1,4 @@
-`#Project 1 CPSC 375
+#Project 1 CPSC 375
 
 library(tidyverse)
 #Loading Data
@@ -13,14 +13,6 @@ covid <- covid %>% pivot_longer(c(-UID, -iso2, -iso3, -code3, -FIPS, -Admin2,
 
 #Converting Demographics to Tidy Data
 #Creating male/female population numbers
-#dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = c(YR2015, "Series Name"))
-#dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=YR2015_SP.POP.65UP.FE.IN+YR2015_SP.POP.65UP.MA.IN, 
-#                          SP.POP.80UP.IN = YR2015_SP.POP.80UP.MA + YR2015_SP.POP.80UP.FE, 
-#                          SP.POP.1564.IN = YR2015_SP.POP.1564.MA.IN + YR2015_SP.POP.1564.FE.IN, 
-#                          SP.POP.0014.IN = YR2015_SP.POP.0014.MA.IN + YR2015_SP.POP.0014.FE.IN, 
-#                          SP.DYN.AMRT = YR2015_SP.DYN.AMRT.MA + YR2015_SP.DYN.AMRT.FE, 
-#                          SP.POP.TOTL = YR2015_SP.POP.TOTL.MA.IN + YR2015_SP.POP.TOTL.MA.IN)
-
 dtidy <- demographics %>% pivot_wider(names_from = "Series Code", values_from = YR2015)
 dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN, 
                           SP.POP.80UP.IN = SP.POP.80UP.MA + SP.POP.80UP.FE, 
@@ -28,20 +20,12 @@ dtidy <- dtidy %>% mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN,
                           SP.POP.0014.IN = SP.POP.0014.MA.IN + SP.POP.0014.FE.IN, 
                           SP.DYN.AMRT = SP.DYN.AMRT.MA + SP.DYN.AMRT.FE, 
                           SP.POP.TOTL = SP.POP.TOTL.MA.IN + SP.POP.TOTL.MA.IN)
-
-#Creating male/female population numbers
-#Note this version is directly 
-#dtidy <- dtidy %>% mutate(SP.POP.80UP=SP.POP.80UP.FE+SP.POP.80UP.MA) %>% 
-#  mutate(SP.POP.1564.IN=SP.POP.1564.MA.IN+SP.POP.1564.FE.IN) %>% 
-#  mutate(SP.POP.0014.IN=SP.POP.0014.MA.IN+SP.POP.0014.FE.IN) %>% 
-#  mutate(SP.DYN.AMRT=SP.DYN.AMRT.MA+SP.DYN.AMRT.FE) %>% 
-#  mutate(SP.POP.TOTL.IN=SP.POP.TOTL.FE.IN+SP.POP.TOTL.MA.IN) %>% 
-#  mutate(SP.POP.65UP.IN=SP.POP.65UP.FE.IN+SP.POP.65UP.MA.IN) %>% 
-#  select(-contains(".FE")) %>% select(-contains(".MA"))
+#Filtering from GDP
+#dtidy <- dtidy %/% subset(select = c())
 
 #Converting GDP to Tidy Data
-gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "Value", values_drop_na = TRUE)
-gdp <- gdp %>% subset(select = c(`Country Name`, `Country Code`, Year, Value))
+gdp <- gdp %>% pivot_longer(c(-"Country Name", -"Country Code", -"Indicator Name", -"Indicator Code"), names_to = "Year", values_to = "GDP", values_drop_na = TRUE)
+gdp <- gdp %>% subset(select = c(`Country Name`, `Country Code`, Year, GDP))
 #Removing all years that are not 2020 in GDP data set
 gdp <- gdp %>% filter(Year == "2020")
 
@@ -54,18 +38,12 @@ covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots
 covid <- covid %>% mutate(vac_rate = shots/Population)
 
 #Creating number of days since first day
-
-#covid2 <- covid %>% group_by(Country_Region) %>% filter(shots > 0) %>% summarise(num_days = n())
-#covid2 <- covid2 %>% mutate(num_of_days = num_days)
-#covid2 <- covid2 %>% subset(select=c(num_of_days))
-
-#Wrangling Data from GDP data set
 covid <- covid %>% group_by(Country_Region) %>% filter(shots > 0) %>% mutate(start_date = min(date))
 covid <- covid %>% mutate(days_since_start = 1 + as.numeric(difftime(date, start_date, units = "days")))
 covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots, days_since_start))
 
 #Joining Tables
-demoGDP <- gdp %>% full_join(demographics, by = "Country Code")
+demoGDP <- gdp %>% full_join(dtidy, by = "Country Code")
 covid_data_full <- covid %>% full_join(demoGDP, by = c(iso3 = 'Country Code'))
 
 #Views to check tables
