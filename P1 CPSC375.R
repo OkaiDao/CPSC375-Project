@@ -1,3 +1,5 @@
+#Project 1 CPSC 375
+
 library(tidyverse)
 #Loading Data
 covid <- read_csv("https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_doses_admin_global.csv")
@@ -59,9 +61,14 @@ covid <- covid %>% mutate(vac_rate = shots/Population)
 
 #Wrangling Data from GDP data set
 covid <- covid %>% group_by(Country_Region) %>% mutate(start_date = min(date))
-covid <- covid %>% mutate(day_since_start = 1 + as.numeric(difftime(date, start_date, units = "days")))
+covid <- covid %>% mutate(days_since_start = 1 + as.numeric(difftime(date, start_date, units = "days")))
+covid <- covid %>% subset(select=c(iso3, Country_Region, Population, date, shots, days_since_start))
 
+#Joining Tables
+demoGDP <- gdp %>% full_join(demographics, by = "Country Code")
+
+#Views to check tables
+view(demoGDP)
 view(covid)
 view(gdp)
 view(dtidy)
-view(covid2)
