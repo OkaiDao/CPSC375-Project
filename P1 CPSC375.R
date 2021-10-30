@@ -103,19 +103,13 @@ covid <- covid %>% mutate(days_since_start = 1 + as.numeric(difftime(date, start
 covid <- covid %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start))
 
 #Joining Tables
-demoGDP <- gdp %>% rename(Country_Region = "Country Name")
+demoGDP <- gdp %>% rename(iso3 = 'Country Code')
 
-demoGDP <- covid %>% left_join(gdp, by=c(Country_Region = "Country Name"))
-demoGDP <- demoGDP %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP))
+demoGDP <- demoGDP %>% inner_join(covid) %>% inner_join(dtidy)
+demoGDP <- demoGDP %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) #%>% drop_na(SP.DYN.LE00.IN)
 
-covid_data_full <- dtidy %>% rename(Country_Region = "Country Name")
-
-covid_data_full <- demoGDP %>% left_join(dtidy, by=c(Country_Region = "Country Name"))
-covid_data_full <- covid_data_full %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) %>% drop_na(SP.DYN.LE00.IN)
-
-covid_data <- demoGDP %>% left_join(dtidy, by=c(Country_Region = "Country Name"))
-covid_data <- covid_data %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) %>% drop_na(SP.URB.TOTL)
-
+#covid_data <- demoGDP %>% left_join(dtidy)
+#covid_data <- covid_data %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) %>% drop_na(SP.URB.TOTL)
 
 
 #Views to check tables
