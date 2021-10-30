@@ -98,15 +98,15 @@ covid <- covid %>% mutate(vacRate = shots/Population)
 
 
 #Wrangling Data from GDP data set
-covid <- covid %>% group_by(Country_Region) %>% filter(shots > 0) %>% mutate(start_date = min(date))
+covid <- covid %>% group_by(iso3) %>% filter(shots > 0) %>% mutate(start_date = min(date))
 covid <- covid %>% mutate(days_since_start = 1 + as.numeric(difftime(date, start_date, units = "days")))
 covid <- covid %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start))
 
 #Joining Tables
-demoGDP <- gdp %>% rename(iso3 = 'Country Code')
+covid_table <- gdp %>% rename(iso3 = 'Country Code')
 
-demoGDP <- demoGDP %>% inner_join(covid) %>% inner_join(dtidy)
-demoGDP <- demoGDP %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) #%>% drop_na(SP.DYN.LE00.IN)
+covid_table <- covid_table %>% inner_join(covid) %>% inner_join(dtidy)
+covid_table <- covid_table %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) #%>% drop_na(SP.DYN.LE00.IN)
 
 #covid_data <- demoGDP %>% left_join(dtidy)
 #covid_data <- covid_data %>% subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL)) %>% drop_na(SP.URB.TOTL)
