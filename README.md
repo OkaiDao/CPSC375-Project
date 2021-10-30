@@ -5,6 +5,8 @@
 
 > Richard Stanley
 
+## Stage 1
+
 <ol type="1">
     <li>Data preparation/wrangling
         <ol type="a">
@@ -57,5 +59,28 @@
     </a>
 </ol>
 
-## Report :
+## Stage 2
 
+<ol type="1">
+    <li> <a href="url">Write a short report describing your data wrangling steps and the different combinations of predictor variables you tried, and any variable         transforms. The report should include the following plots: </a>
+        <ol type="i">
+            <li>
+                <a href="url">
+                    a scatterplot of only the most recent vaccination rate for every country and the number of days since first vaccination
+                </a>
+            </li>
+            <li>
+                <a href="url">
+                    a summary bar graph with the R2 values on the y-axis and a corresponding model name on the x-axis (include all the different models you tried).
+                </a>
+            </li>
+        </ol>
+    </li>
+    <li> 
+        There should be a  <a href="url">conclusion</a> that describes in words the implication of your most accurate model.
+        <a href="url">[A PDF file]</a>
+    </li>
+    <a href="url">
+            A listing of your R code in one file
+    </a>
+</ol>
