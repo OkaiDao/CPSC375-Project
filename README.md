@@ -5,7 +5,7 @@
 
 > Richard Stanley
 
-## Stage 1
+## Stage 1: with [Draft Report](https://github.com/OkaiDao/CPSC375-Project/tree/main/report) and in [[Pdf]]()
 
 <ol type="1">
     <li>Data preparation/wrangling
