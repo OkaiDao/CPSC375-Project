@@ -2,6 +2,7 @@
 
 library(tidyverse)
 library(ggplot2)
+library(modelr)
 
 # [1.a START]
   # Loading Data [requirement 1.a]
@@ -80,7 +81,18 @@ library(ggplot2)
 # [1.h END]
 
 # Finally, look at the data.
+covid_data_full <- covid_data_full %>% mutate(ShotsPerHundredK=vacRate*100000)
 covid_data_full %>% view()
+
+# mutate with vacRate per population total
+covid_data_full <- covid_data_full %>% mutate(ShotsPerHundredK=vacRate*100000)
 
 # Report Section
 ggplot(data = covid_data_full) + geom_point(mapping=aes(x = days_since_start, y = vacRate, color=iso3))
+
+# Create the linear model
+cov_displ <- lm(formula = vacRate ~ days_since_start, data = covid_data_full)
+
+#Scatterplot for latest day 
+covid_data_full_latest <- covid_data_full %>% arrange(-days_since_start)%>% group_by(Country_Region) %>% slice(1)
+ggplot(data = covid_data_full_latest) + geom_point(mapping=aes(x=days_since_start, y=vacRate))
