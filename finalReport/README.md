@@ -41,11 +41,11 @@ We also made one variable transformation which was vaccination rate * 100,000 wh
 
 ### 4.d. A scatterplot of most recent vaccination rates for different countries
 
-![scatterplot of most recent vaccination](https://github.com/OkaiDao/CPSC375-Project/raw/main/images/latestCovid.png)
+Figure 1
 
 ### 4.e. A plot that shows the R2 values of the different models
 
-![A plot that shows the R2 values of the different models](https://github.com/OkaiDao/CPSC375-Project/raw/main/images/bgCovid.png)
+Figure 2
 
 ### 4.f. A conclusion – what does your modeling say about vaccination rates (e.g., what are the significant factors and what are not)
 
@@ -54,3 +54,7 @@ When checking out the bar graph which represents whether or not the adjusted r<s
 ### 4.g. Clarity of the report
 
 Ultimately, we didn't find a significant combination of independent variables that gave us a significant conclusive model for vaccination rate. We will say that aside from the days since the start of shots that the most impactful independent variable was **life expectancy at birth** which only effected the models at a difference of 0.0951 or roughly 10% of the adjusted r<sup>2</sup>.
+
+![Scatterplot of most recent vaccination](https://github.com/OkaiDao/CPSC375-Project/raw/main/images/latestCovid.png)
+
+![A plot that shows the R2 values of the different models](https://github.com/OkaiDao/CPSC375-Project/raw/main/images/bgCovid.png)
