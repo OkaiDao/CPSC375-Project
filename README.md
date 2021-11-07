@@ -60,7 +60,7 @@
     </a>
 </ol>
 
-## Stage 2
+## Stage 2 [PDF]()
 
 <ol type="1">
     <li> <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4a-brief-descriptions-of-the-data-wrangling-steps">Write a short report describing your data wrangling steps and the different combinations of predictor variables you tried, and any variable         transforms. The report should include the following plots: </a>

@@ -10,22 +10,23 @@
 
 ### 4.a. Brief descriptions of the data wrangling steps
 
-For data wrangling, we add a mutation for the vaccination rate based on shots given to people per one hundred thousand. Since the vaccination rate is already based on population, later in our modeling, there was no change in the adjusted r-squared value.
+For data wrangling, the three tables, demographics, covid, and the gdp data were converted into tidy data. Then all the unnecessary data were filtered out. For the demographics table, LE00 and the URB were converted to a smaller tables and joined by country code so each country can have each population labeled individually. We added a variable days since the first day of vaccination, and a mutation for the vaccination rate based on shots given to people per one hundred thousand. Since the vaccination rate is already based on population, later in our modeling, there was no change in the adjusted r-squared value.
 While adding shots per hundred thousand doesn't change the model, it would be a decent metric to use to report possible predictions.
+At the end all the tables were merged by iso3 and country code.
 
 ### 4.b. Brief description of how variables were chosen for data modeling
 
 For the data modeling, we used a table to run various linear models, checked each summary, and compared the adjusted r-squared values.
 Here is that table:
 
-| multiple r<sup>2</sup> | adjusted r<sup>2</sup> | Code used |
+| multiple r<sup>2</sup> | adjusted r<sup>2</sup> | Linear model - pseudocode |
 |------|-------|------------------------|
-| 0.5759 | 0.5759 | mod_displ_DSS_URB <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL) |
-| 0.01808 | 0.01802 | mod_displ_DSS_GDP_URB <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP) |
-| 0.5979 | 0.5979 | mod_displ_DSS_GDP_URB_DST <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP) |
-| 0.6931 | 0.693 | mod_displ_BEST <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN) |
-| 0.6931 | 0.693 | mod_displ_DSS_URB_GDP_LE00_POP <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
-| 0.1779 | 0.1778 | mod_displ_URB_GDP_LE00_POP <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
+| 0.5759  | 0.5759   | DSS_URB              <- lm vacRate ~ days_since_start + URB                    |
+| 0.01808 | 0.01802  | DSS_GDP_URB          <- lm vacRate ~ URB + GDP                                 |
+| 0.5979  | 0.5979   | DSS_GDP_URB_DST      <- lm vacRate ~ days_since_start + URB + GDP              |
+| 0.6931  | 0.693    | BEST                 <- lm vacRate ~ days_since_start + URB + GDP + LE00       |
+| 0.6931  | 0.693    | DSS_URB_GDP_LE00_POP <- lm vacRate ~ days_since_start + URB + GDP + LE00 + POP |
+| 0.1779  | 0.1778   | URB_GDP_LE00_POP     <- lm vacRate ~ URB + GDP + LE00 + POP                    |
 
 The results of these models are used later in this report in a bar graph to compare these values.
 
