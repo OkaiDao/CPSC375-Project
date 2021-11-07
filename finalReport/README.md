@@ -19,14 +19,16 @@ At the end all the tables were merged by iso3 and country code.
 For the data modeling, we used a table to run various linear models, checked each summary, and compared the adjusted r-squared values.
 Here is that table:
 
+Please note that DSS is variable: days_since_start and VR is the vaccination rate variable.
+
 | multiple r<sup>2</sup> | adjusted r<sup>2</sup> | Linear model - pseudocode |
 |------|-------|------------------------|
-| 0.5759  | 0.5759   | DSS_URB              <- lm vacRate ~ days_since_start + URB                    |
-| 0.01808 | 0.01802  | DSS_GDP_URB          <- lm vacRate ~ URB + GDP                                 |
-| 0.5979  | 0.5979   | DSS_GDP_URB_DST      <- lm vacRate ~ days_since_start + URB + GDP              |
-| 0.6931  | 0.693    | BEST                 <- lm vacRate ~ days_since_start + URB + GDP + LE00       |
-| 0.6931  | 0.693    | DSS_URB_GDP_LE00_POP <- lm vacRate ~ days_since_start + URB + GDP + LE00 + POP |
-| 0.1779  | 0.1778   | URB_GDP_LE00_POP     <- lm vacRate ~ URB + GDP + LE00 + POP                    |
+| 0.5759  | 0.5759   | DSS_URB              <- lm VR ~ DSS + URB                    |
+| 0.01808 | 0.01802  | DSS_GDP_URB          <- lm VR ~ URB + GDP                    |
+| 0.5979  | 0.5979   | DSS_GDP_URB_DST      <- lm VR ~ DSS + URB + GDP              |
+| 0.6931  | 0.693    | BEST                 <- lm VR ~ DSS + URB + GDP + LE00       |
+| 0.6931  | 0.693    | DSS_URB_GDP_LE00_POP <- lm VR ~ DSS + URB + GDP + LE00 + POP |
+| 0.1779  | 0.1778   | URB_GDP_LE00_POP     <- lm VR ~ URB + GDP + LE00 + POP       |
 
 The results of these models are used later in this report in a bar graph to compare these values.
 
