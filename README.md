@@ -53,8 +53,9 @@
         </ol>
     </li>
     <li> Linear modeling the Covid vaccination rate </li>
-    <a href="url">
-            Make a list of all predictor variables that are available. The challenge is to identify which combination of these predictors will give the best predictive model. You should also try transforming some of the variables (e.g., transforming population counts to proportion of total population). Run linear regression with at least 5 different combinations of predictor variables. 
+    Make a <a href="url"> list </a> of all predictor variables that are available. 
+            The challenge is to identify which <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4b-brief-description-of-how-variables-were-chosen-for-data-modeling"> combination </a> of these predictors will give the best predictive model. 
+            You should also try transforming some of the variables (e.g., <a href="https://github.com/OkaiDao/CPSC375-Project/blob/a7415e9e8616988854c4b6b76670f13a726e5bb9/P1%20CPSC375.R#L84">transforming population counts to proportion of total population</a>). Run linear regression with <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4b-brief-description-of-how-variables-were-chosen-for-data-modeling">at least 5 different combinations of predictor variables.</a>
             Note: each day becomes one data point, i.e., the vaccination rate is calculated for each day for each country. The number of vaccinations should not be used as an independent variable as this is essentially what you are predicting.
     </a>
 </ol>
@@ -62,25 +63,25 @@
 ## Stage 2
 
 <ol type="1">
-    <li> <a href="url">Write a short report describing your data wrangling steps and the different combinations of predictor variables you tried, and any variable         transforms. The report should include the following plots: </a>
+    <li> <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4a-brief-descriptions-of-the-data-wrangling-steps">Write a short report describing your data wrangling steps and the different combinations of predictor variables you tried, and any variable         transforms. The report should include the following plots: </a>
         <ol type="i">
             <li>
-                <a href="url">
+                <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4d-a-scatterplot-of-most-recent-vaccination-rates-for-different-countries">
                     a scatterplot of only the most recent vaccination rate for every country and the number of days since first vaccination
                 </a>
             </li>
             <li>
-                <a href="url">
+                <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4e-a-plot-that-shows-the-r2-values-of-the-different-models">
                     a summary bar graph with the R2 values on the y-axis and a corresponding model name on the x-axis (include all the different models you tried).
                 </a>
             </li>
         </ol>
     </li>
     <li> 
-        There should be a  <a href="url">conclusion</a> that describes in words the implication of your most accurate model.
+        There should be a  <a href="https://github.com/OkaiDao/CPSC375-Project/tree/main/finalReport#4f-a-conclusion--what-does-your-modeling-say-about-vaccination-rates-eg-what-are-the-significant-factors-and-what-are-not">conclusion</a> that describes in words the implication of your most accurate model.
         <a href="url">[A PDF file]</a>
     </li>
-    <a href="url">
+    <a href="https://github.com/OkaiDao/CPSC375-Project/blob/main/P1%20CPSC375.R#L1">
             A listing of your R code in one file
     </a>
 </ol>

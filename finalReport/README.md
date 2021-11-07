@@ -20,12 +20,12 @@ Here is that table:
 
 | multiple r<sup>2</sup> | adjusted r<sup>2</sup> | Code used |
 |------|-------|------------------------|
-| 0.5759 | 0.5759 | mod_displ_URB <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL) |
-| 0.01808 | 0.01802 | mod_displ_GDP_URB <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP) |
-| 0.5979 | 0.5979 | mod_displ_GDP_URB_DST <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP) |
-| 0.6931 | 0.693 | mod_displ_4 <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN) |
-| 0.6931 | 0.693 | mod_displ_5 <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
-| 0.1779 | 0.1778 | mod_displ_7 <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
+| 0.5759 | 0.5759 | mod_displ_DSS_URB <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL) |
+| 0.01808 | 0.01802 | mod_displ_DSS_GDP_URB <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP) |
+| 0.5979 | 0.5979 | mod_displ_DSS_GDP_URB_DST <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP) |
+| 0.6931 | 0.693 | mod_displ_BEST <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN) |
+| 0.6931 | 0.693 | mod_displ_DSS_URB_GDP_LE00_POP <- lm(data = covid_data_full, vacRate ~ days_since_start + SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
+| 0.1779 | 0.1778 | mod_displ_URB_GDP_LE00_POP <- lm(data = covid_data_full, vacRate ~ SP.URB.TOTL + GDP + SP.DYN.LE00.IN + Population) |
 
 The results of these models are used later in this report in a bar graph to compare these values.
 

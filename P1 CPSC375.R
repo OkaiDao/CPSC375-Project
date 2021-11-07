@@ -80,6 +80,18 @@ library(modelr)
     subset(select=c(iso3, Country_Region, vacRate, shots, Population, days_since_start, GDP, SP.DYN.LE00.IN, SP.URB.TOTL))
 # [1.h END]
 
+
+# [ 2 START ]
+mod_displ_BEST <- lm(data = covid_data_full, vacRate ~ days_since_start + + GDP + SP.URB.TOTL + SP.DYN.LE00.IN)
+covid_Best <- covid_data_full %>% add_predictions(mod_displ_BEST, var="pred_Best")
+ggplot(data=covid_Best)+geom_point(mapping=aes(x=days_since_start, y=vacRate, color=SP.DYN.LE00.IN)) + geom_line(mapping=aes(x=days_since_start,y=pred_Best,color=SP.DYN.LE00.IN))
+
+# bgModel is based off the models that we ran in the final report table.
+bgModel <- data.frame(Models = c("DSS_URB", "DSS_GDP_URB", "DSS_URB_GDP_DST", "Best","DSS_URB_GDP_LE00_POP", "URB_GDP_LE00_POP"),
+      R2 = c(.5759, .01808, .5979, .6931, .6931, .1779))  
+ggplot(data = bgModel, aes(x=Models, y=R2)) + geom_bar(stat="identity")
+# [ 2 END ]
+
 # Finally, look at the data.
 covid_data_full <- covid_data_full %>% mutate(ShotsPerHundredK=vacRate*100000)
 covid_data_full %>% view()
